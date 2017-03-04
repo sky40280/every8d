@@ -3,7 +3,7 @@
 namespace Recca0120\Every8d;
 
 use Carbon\Carbon;
-use RuntimeException;
+use DomainException;
 use Http\Client\HttpClient;
 use Http\Message\MessageFactory;
 use Http\Discovery\HttpClientDiscovery;
@@ -32,9 +32,10 @@ class Client
      * @param \Http\Client\HttpClient $httpClient
      * @param \Http\Message\MessageFactory $messageFactory
      */
-    public function __construct($options = [], HttpClient $httpClient = null, MessageFactory $messageFactory = null)
+    public function __construct($userId, $password, HttpClient $httpClient = null, MessageFactory $messageFactory = null)
     {
-        $this->options = $options;
+        $this->userId = $userId;
+        $this->password = $password;
         $this->httpClient = $httpClient ?: HttpClientDiscovery::find();
         $this->messageFactory = $messageFactory ?: MessageFactoryDiscovery::find();
     }
@@ -63,12 +64,12 @@ class Client
         }
 
         $response = $this->doRequest('getCredit.ashx', [
-            'UID' => $this->options['uid'],
-            'PWD' => $this->options['password'],
+            'UID' => $this->userId,
+            'PWD' => $this->password,
         ]);
 
         if ($this->isValidResponse($response) === false) {
-            throw new RuntimeException($response);
+            throw new DomainException($response);
         }
 
         return $this->setCredit($response)
@@ -85,8 +86,8 @@ class Client
     public function send($params)
     {
         $response = $this->doRequest('sendSMS.ashx', array_filter([
-            'UID' => $this->options['uid'],
-            'PWD' => $this->options['password'],
+            'UID' => $this->userId,
+            'PWD' => $this->password,
             'SB' => isset($params['subject']) ? $params['subject'] : null,
             'MSG' => $params['text'],
             'DEST' => $params['to'],
@@ -94,7 +95,7 @@ class Client
         ]));
 
         if ($this->isValidResponse($response) === false) {
-            throw new RuntimeException($response);
+            throw new DomainException($response, 500);
         }
 
         list($credit, $sended, $cost, $unsend, $batchId) = explode(',', $response);

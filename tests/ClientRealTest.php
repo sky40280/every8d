@@ -8,16 +8,18 @@ use PHPUnit\Framework\TestCase;
 
 class ClientRealTest extends TestCase
 {
+    protected $userId = '';
+
+    protected $password = '';
+
     protected $options = [
-        'uid' => '',
-        'password' => '',
         'to' => '',
         'text' => '中文測試',
     ];
 
     protected function setUp()
     {
-        if (empty($this->options['uid']) === true || empty($this->options['password']) === true) {
+        if (empty($this->userId) === true || empty($this->password) === true) {
             $this->markTestSkipped('Please set uid and password');
         }
     }
@@ -29,14 +31,14 @@ class ClientRealTest extends TestCase
 
     public function testCredit()
     {
-        $client = new Client($this->options);
+        $client = new Client($this->userId, $this->password);
 
         $this->assertInternalType('float', $client->credit());
     }
 
     public function testSend()
     {
-        $client = new Client($this->options);
+        $client = new Client($this->userId, $this->password);
 
         $this->assertInternalType('array', $client->send([
             'to' => $this->options['to'],

@@ -17,24 +17,20 @@ class ClientTest extends TestCase
     public function testCredit()
     {
         $client = new Client(
-            $options = [
-                'uid' => 'foo',
-                'password' => 'foo',
-            ],
+            $userId = 'foo',
+            $password = 'foo',
             $httpClient = m::mock('Http\Client\HttpClient'),
             $messageFactory = m::mock('Http\Message\MessageFactory')
         );
-
-        $input = [
-            'UID' => $options['uid'],
-            'PWD' => $options['password'],
-        ];
 
         $messageFactory->shouldReceive('createRequest')->once()->with(
             'POST',
             'http://api.every8d.com/API21/HTTP/getCredit.ashx',
             ['Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'],
-            http_build_query($input)
+            http_build_query([
+                'UID' => $userId,
+                'PWD' => $password,
+            ])
         )->andReturn(
             $request = m::mock('Psr\Http\Message\RequestInterface')
         );
@@ -53,32 +49,26 @@ class ClientTest extends TestCase
     public function testSend()
     {
         $client = new Client(
-            $options = [
-                'uid' => 'foo',
-                'password' => 'foo',
-            ],
+            $userId = 'foo',
+            $password = 'foo',
             $httpClient = m::mock('Http\Client\HttpClient'),
             $messageFactory = m::mock('Http\Message\MessageFactory')
         );
-
-        $input = [
-            'UID' => $options['uid'],
-            'PWD' => $options['password'],
-        ];
 
         $params = [
             'to' => 'foo',
             'text' => 'foo',
         ];
 
-        $query = array_filter([
-            'UID' => $options['uid'],
-            'PWD' => $options['password'],
+        $query = array_filter(array_merge([
+            'UID' => $userId,
+            'PWD' => $password,
+        ], [
             'SB' => isset($params['subject']) ? $params['subject'] : null,
             'MSG' => $params['text'],
             'DEST' => $params['to'],
             'ST' => isset($params['ST']) ? Carbon::parse($params['ST'])->format('YmdHis') : null,
-        ]);
+        ]));
 
         $messageFactory->shouldReceive('createRequest')->once()->with(
             'POST',

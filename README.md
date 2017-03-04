@@ -22,16 +22,26 @@ require __DIR__.'/vendor/autoload.php';
 
 use Recca0120\Every8d\Client;
 
-$client = new Client([
-    'uid' => 'xxx',
-    'password' => 'xxx'
-]);
+$userId = 'xxx';
+$password = 'xxx';
+
+$client = new Client(userId, $password);
 
 $client->credit(); // 取得額度
-$client->send([
+var_dump($client->send([
     'to' => '09xxxxxxxx',
     'text' => 'test message',
-]);
+]));
+/*
+return [
+    'credit' => 100.0,
+    'sended' => 1,
+    'cost' => 1.0,
+    'unsend' => 0,
+    'batchId' => 'd0ad6380-4842-46a5-a1eb-9888e78fefd8',
+];
+ */
+
 ```
 
 ### TODO
