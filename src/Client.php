@@ -97,11 +97,15 @@ class Client
             throw new RuntimeException($response);
         }
 
-        $result = explode(',', $response);
-        $this->setCredit($result[0]);
-        $batchId = $result[4];
+        list($credit, $sended, $cost, $unsend, $batchId) = explode(',', $response);
 
-        return $batchId;
+        return [
+            'credit' => $this->setCredit($credit)->credit,
+            'sended' => (int) $sended,
+            'cost' => (float) $cost,
+            'unsend' => (int) $unsend,
+            'batchId' => $batchId,
+        ];
     }
 
     /**
@@ -129,7 +133,7 @@ class Client
         $request = $this->messageFactory->createRequest(
             'POST',
             rtrim($this->apiEndpoint, '/').'/'.$uri,
-            ['Content-Type' => 'application/x-www-form-urlencoded'],
+            ['Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'],
             http_build_query($params)
         );
         $response = $this->httpClient->sendRequest($request);

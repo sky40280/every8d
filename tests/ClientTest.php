@@ -33,7 +33,7 @@ class ClientTest extends TestCase
         $messageFactory->shouldReceive('createRequest')->once()->with(
             'POST',
             'http://api.every8d.com/API21/HTTP/getCredit.ashx',
-            ['Content-Type' => 'application/x-www-form-urlencoded'],
+            ['Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'],
             http_build_query($input)
         )->andReturn(
             $request = m::mock('Psr\Http\Message\RequestInterface')
@@ -83,7 +83,7 @@ class ClientTest extends TestCase
         $messageFactory->shouldReceive('createRequest')->once()->with(
             'POST',
             'http://api.every8d.com/API21/HTTP/sendSMS.ashx',
-            ['Content-Type' => 'application/x-www-form-urlencoded'],
+            ['Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'],
             http_build_query($query)
         )->andReturn(
             $request = m::mock('Psr\Http\Message\RequestInterface')
@@ -97,7 +97,13 @@ class ClientTest extends TestCase
             $credit = '285.0,1,1.0,0,d0ad6380-4842-46a5-a1eb-9888e78fefd8'
         );
 
-        $this->assertSame('d0ad6380-4842-46a5-a1eb-9888e78fefd8', $client->send($params));
+        $this->assertSame([
+            'credit' => 285.0,
+            'sended' => 1,
+            'cost' => 1.0,
+            'unsend' => 0,
+            'batchId' => 'd0ad6380-4842-46a5-a1eb-9888e78fefd8',
+        ], $client->send($params));
         $this->assertSame((float) '285', $client->credit());
     }
 }

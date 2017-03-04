@@ -12,7 +12,7 @@ class ClientRealTest extends TestCase
         'uid' => '',
         'password' => '',
         'to' => '',
-        'text' => 'test',
+        'text' => '中文測試',
     ];
 
     protected function setUp()
@@ -38,7 +38,7 @@ class ClientRealTest extends TestCase
     {
         $client = new Client($this->options);
 
-        $this->assertInternalType('string', $client->send([
+        $this->assertInternalType('array', $client->send([
             'to' => $this->options['to'],
             'text' => $this->options['text'],
         ]));
