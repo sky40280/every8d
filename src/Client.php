@@ -28,7 +28,8 @@ class Client
     /**
      * __construct.
      *
-     * @param array $options
+     * @param string $userId
+     * @param string $password
      * @param \Http\Client\HttpClient $httpClient
      * @param \Http\Message\MessageFactory $messageFactory
      */
@@ -79,7 +80,7 @@ class Client
     /**
      * send.
      *
-     * @param  array $params
+     * @param array $params
      *
      * @return string
      */
@@ -112,7 +113,7 @@ class Client
     /**
      * isValidResponse.
      *
-     * @param  string  $response
+     * @param string $response
      *
      * @return bool
      */
@@ -124,8 +125,8 @@ class Client
     /**
      * doRequest.
      *
-     * @param  string $uri
-     * @param  array $params
+     * @param string $uri
+     * @param array $params
      *
      * @return string
      */

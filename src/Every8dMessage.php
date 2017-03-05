@@ -21,7 +21,7 @@ class Every8dMessage
     /**
      * Create a new message instance.
      *
-     * @param  string  $content
+     * @param string $content
      * @return void
      */
     public function __construct($content = '')
@@ -30,9 +30,9 @@ class Every8dMessage
     }
 
     /**
-     * Set the message content.
+     * Set the message subject.
      *
-     * @param  string  $content
+     * @param string $subject
      * @return $this
      */
     public function subject($subject)
@@ -45,7 +45,7 @@ class Every8dMessage
     /**
      * Set the message subject.
      *
-     * @param  string  $content
+     * @param string $content
      * @return $this
      */
     public function content($content)
@@ -58,7 +58,7 @@ class Every8dMessage
     /**
      * Create a new message instance.
      *
-     * @param  string $content
+     * @param string $content
      *
      * @return static
      */
