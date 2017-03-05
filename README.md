@@ -8,6 +8,8 @@
 [![License](https://poser.pugx.org/recca0120/every8d/license.svg)](https://packagist.org/packages/recca0120/every8d)
 [![Monthly Downloads](https://poser.pugx.org/recca0120/every8d/d/monthly)](https://packagist.org/packages/recca0120/every8d)
 [![Daily Downloads](https://poser.pugx.org/recca0120/every8d/d/daily)](https://packagist.org/packages/recca0120/every8d)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/recca0120/every8d/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/recca0120/every8d/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/recca0120/every8d/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/recca0120/every8d/?branch=master)
 
 ## Install
 

@@ -13,24 +13,24 @@ class Every8dChannel
      */
     protected $client;
 
-   /**
-    * __construct.
-    *
-    * @param \Recca0120\Every8d\Client $client
-    */
+    /**
+     * __construct.
+     *
+     * @param \Recca0120\Every8d\Client $client
+     */
     public function __construct(Client $client)
     {
         $this->client = $client;
     }
 
-   /**
-    * Send the given notification.
-    *
-    * @param  mixed  $notifiable
-    * @param  \Illuminate\Notifications\Notification  $notification
-    *
-    * @return \Recca0120\Every8d\Every8dMessage;
-    */
+    /**
+     * Send the given notification.
+     *
+     * @param  mixed  $notifiable
+     * @param  \Illuminate\Notifications\Notification  $notification
+     *
+     * @return \Recca0120\Every8d\Every8dMessage;
+     */
     public function send($notifiable, Notification $notification)
     {
         if (! $to = $notifiable->routeNotificationFor('every8d')) {
