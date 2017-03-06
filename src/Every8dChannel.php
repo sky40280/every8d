@@ -28,8 +28,7 @@ class Every8dChannel
      *
      * @param mixed $notifiable
      * @param \Illuminate\Notifications\Notification $notification
-     *
-     * @return \Recca0120\Every8d\Every8dMessage;
+     * @return \Recca0120\Every8d\Every8dMessage
      */
     public function send($notifiable, Notification $notification)
     {

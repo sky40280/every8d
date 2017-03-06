@@ -34,6 +34,9 @@
             "Recca0120\\Every8d\\Tests\\": "tests/"
         }
     },
+    "suggest": {
+       "illuminate/notifications": "If you need Laravel Notification"
+   },
     "config": {
         "preferred-install": "dist",
         "sort-packages": true

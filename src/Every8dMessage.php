@@ -22,7 +22,6 @@ class Every8dMessage
      * Create a new message instance.
      *
      * @param string $content
-     * @return void
      */
     public function __construct($content = '')
     {
@@ -59,7 +58,6 @@ class Every8dMessage
      * Create a new message instance.
      *
      * @param string $content
-     *
      * @return static
      */
     public static function create($content)

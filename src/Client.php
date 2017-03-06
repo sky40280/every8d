@@ -26,6 +26,34 @@ class Client
     public $credit = null;
 
     /**
+     * $userId.
+     *
+     * @var string
+     */
+    protected $userId;
+
+    /**
+     * $password.
+     *
+     * @var string
+     */
+    protected $password;
+
+    /**
+     * $httpClient.
+     *
+     * @var \Http\Client\HttpClient
+     */
+    protected $httpClient;
+
+    /**
+     * $messageFactory.
+     *
+     * @var \Http\Message\MessageFactory
+     */
+    protected $messageFactory;
+
+    /**
      * __construct.
      *
      * @param string $userId
@@ -70,7 +98,7 @@ class Client
         ]);
 
         if ($this->isValidResponse($response) === false) {
-            throw new DomainException($response);
+            throw new DomainException($response, 500);
         }
 
         return $this->setCredit($response)
