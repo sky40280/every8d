@@ -70,18 +70,6 @@ class Client
     }
 
     /**
-     * setCredit.
-     *
-     * @param string $credit
-     */
-    protected function setCredit($credit)
-    {
-        $this->credit = (float) $credit;
-
-        return $this;
-    }
-
-    /**
      * credit.
      *
      * @return float
@@ -136,6 +124,18 @@ class Client
             'unsend' => (int) $unsend,
             'batchId' => $batchId,
         ];
+    }
+
+    /**
+     * setCredit.
+     *
+     * @param string $credit
+     */
+    protected function setCredit($credit)
+    {
+        $this->credit = (float) $credit;
+
+        return $this;
     }
 
     /**
