@@ -22,7 +22,7 @@
         "illuminate/support": "^5.1",
         "mockery/mockery": "~0.9.4",
         "php-http/guzzle6-adapter": "^1.1",
-        "phpunit/phpunit": "~4.8|~5.4"
+        "phpunit/phpunit": "~4.8|~5.4|~6.1"
     },
     "autoload": {
         "psr-4": {
@@ -39,6 +39,14 @@
    },
     "config": {
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Recca0120\\Every8d\\Every8dServiceProvider"
+            ]
+        }
     }
 }
