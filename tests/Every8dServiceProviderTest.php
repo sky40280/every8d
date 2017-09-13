@@ -30,7 +30,7 @@ class Every8dServiceProviderTest extends TestCase
         $app->shouldReceive('singleton')->once()->with('Recca0120\Every8d\Client', m::on(function ($closure) use ($app) {
             $app->shouldReceive('offsetGet')->once()->with('config')->andReturn(
                 $config = [
-                    'services.every8d' => [
+                    'broadcasting.connections.every8d' => [
                         'user_id' => 'foo',
                         'password' => 'bar',
                     ],

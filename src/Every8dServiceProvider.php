@@ -9,7 +9,7 @@ class Every8dServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(Client::class, function ($app) {
-            $config = $app['config']['services.every8d'];
+            $config = $app['config']['broadcasting.connections.every8d'];
 
             return new Client($config['user_id'], $config['password']);
         });
