@@ -21,7 +21,7 @@ class Every8dMessage
     /**
      * The message send time.
      *
-     * @var string
+     * @var \Carbon\Carbon|string
      */
     public $sendTime;
 
