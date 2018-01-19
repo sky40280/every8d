@@ -19,6 +19,13 @@ class Every8dMessage
     public $content;
 
     /**
+     * The message send time.
+     *
+     * @var string
+     */
+    public $sendTime;
+
+    /**
      * Create a new message instance.
      *
      * @param string $content
@@ -50,6 +57,19 @@ class Every8dMessage
     public function content($content)
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Set the message send time.
+     *
+     * @param \Carbon\Carbon|string $sendTime
+     * @return $this
+     */
+    public function sendTime($sendTime)
+    {
+        $this->sendTime = $sendTime;
 
         return $this;
     }

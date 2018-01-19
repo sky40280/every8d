@@ -46,6 +46,7 @@ class Every8dChannel
             'subject' => $message->subject,
             'to' => $to,
             'text' => trim($message->content),
+            'sendTime' => $message->sendTime,
         ]);
     }
 }

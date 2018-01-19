@@ -3,6 +3,7 @@
 namespace Recca0120\Every8d\Tests;
 
 use Mockery as m;
+use Carbon\Carbon;
 use PHPUnit\Framework\TestCase;
 use Recca0120\Every8d\Every8dMessage;
 
@@ -40,6 +41,16 @@ class Every8dMessageTest extends TestCase
         );
 
         $this->assertSame($content, $message->content);
+    }
+
+    public function testSendTime()
+    {
+        $message = new Every8dMessage();
+        $message->sendTime(
+            $sendTime = Carbon::now()
+        );
+
+        $this->assertSame($sendTime, $message->sendTime);
     }
 
     public function testCreate()

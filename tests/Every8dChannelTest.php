@@ -55,14 +55,15 @@ class Every8dChannelTest extends TestCase
             'subject' => $subject = 'bar',
             'to' => $to = '+1234567890',
             'text' => $message = 'foo',
+            'sendTime' => $sendTime = date('YmdHis'),
         ])->once();
 
         $channel->send(
             new TestNotifiable(function () use ($to) {
                 return $to;
             }),
-            new TestNotification(function () use ($subject, $message) {
-                return Every8dMessage::create($message)->subject($subject);
+            new TestNotification(function () use ($subject, $message, $sendTime) {
+                return Every8dMessage::create($message)->subject($subject)->sendTime($sendTime);
             })
         );
     }

@@ -108,7 +108,7 @@ class Client
             'SB' => isset($params['subject']) ? $params['subject'] : null,
             'MSG' => $params['text'],
             'DEST' => $params['to'],
-            'ST' => isset($params['ST']) ? Carbon::parse($params['ST'])->format('YmdHis') : null,
+            'ST' => empty($params['sendTime']) === false ? Carbon::parse($params['sendTime'])->format('YmdHis') : null,
         ]));
 
         if ($this->isValidResponse($response) === false) {
