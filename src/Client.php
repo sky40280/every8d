@@ -89,8 +89,7 @@ class Client
             throw new DomainException($response, 500);
         }
 
-        return $this->setCredit($response)
-            ->credit;
+        return $this->setCredit($response)->credit;
     }
 
     /**
