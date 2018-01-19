@@ -33,6 +33,7 @@ class Every8dChannelTest extends TestCase
             'subject' => null,
             'to' => $to = '+1234567890',
             'text' => $message = 'foo',
+            'sendTime' => null,
         ])->once();
 
         $channel->send(
