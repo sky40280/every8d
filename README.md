@@ -52,8 +52,8 @@ Add your Every8d login, secret key (hashed password) and default sender name (or
 // config/services.php
 ...
 'every8d' => [
-    'user_id'  => env('EVERY8D_USER_ID'),
-    'password' => env('EVERY8D_PASSWORD'),
+    'user_id'  => env('SERVICES_EVERY8D_USER_ID'),
+    'password' => env('SERVICES_EVERY8D_PASSWORD'),
 ],
 ...
 ```
@@ -95,6 +95,8 @@ public function routeNotificationForEvery8d()
 `subject()`: Sets a subject of the notification subject.
 
 `content()`: Sets a content of the notification message.
+
+`sendTime()`: Set send time of the notification message.
 
 ## Changelog
 
