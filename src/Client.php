@@ -101,14 +101,14 @@ class Client
      */
     public function send($params)
     {
-        $response = $this->doRequest('sendSMS.ashx', array_filter([
+        $response = $this->doRequest('sendSMS.ashx', array_filter(array_merge([
             'UID' => $this->userId,
             'PWD' => $this->password,
-            'SB' => isset($params['subject']) ? $params['subject'] : null,
-            'MSG' => $params['text'],
-            'DEST' => $params['to'],
-            'ST' => empty($params['sendTime']) === false ? Carbon::parse($params['sendTime'])->format('YmdHis') : null,
-        ]));
+            'SB' => null,
+            'MSG' => null,
+            'DEST' => null,
+            'ST' => null,
+        ], $this->remapParams($params))));
 
         if ($this->isValidResponse($response) === false) {
             throw new DomainException($response, 500);
@@ -168,5 +168,36 @@ class Client
         $response = $this->httpClient->sendRequest($request);
 
         return $response->getBody()->getContents();
+    }
+
+    /**
+     * remapParams.
+     *
+     * @param array $params
+     * @return array
+     */
+    protected function remapParams($params)
+    {
+        if (empty($params['subject']) === false) {
+            $params['SB'] = $params['subject'];
+            unset($params['subject']);
+        }
+
+        if (empty($params['to']) === false) {
+            $params['DEST'] = $params['to'];
+            unset($params['to']);
+        }
+
+        if (empty($params['text']) === false) {
+            $params['MSG'] = $params['text'];
+            unset($params['text']);
+        }
+
+        if (empty($params['sendTime']) === false) {
+            $params['ST'] = empty($params['sendTime']) === false ? Carbon::parse($params['sendTime'])->format('YmdHis') : null;
+            unset($params['sendTime']);
+        }
+
+        return $params;
     }
 }
