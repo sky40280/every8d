@@ -3,7 +3,6 @@
 namespace Recca0120\Every8d\Tests;
 
 use Mockery as m;
-use Recca0120\Every8d\Client;
 use PHPUnit\Framework\TestCase;
 use Recca0120\Every8d\Every8dServiceProvider;
 
@@ -30,14 +29,19 @@ class Every8dServiceProviderTest extends TestCase
         $app->shouldReceive('singleton')->once()->with('Recca0120\Every8d\Client', m::on(function ($closure) use ($app) {
             $app->shouldReceive('offsetGet')->once()->with('config')->andReturn(
                 $config = [
-                    'broadcasting.connections.every8d' => [
+                    'services.every8d' => [
                         'user_id' => 'foo',
                         'password' => 'bar',
                     ],
                 ]
             );
 
-            return $closure($app) instanceof Client;
+            $client = $closure($app);
+            $this->assertInstanceOf('Recca0120\Every8d\Client', $client);
+            $this->assertAttributeEquals('foo', 'userId', $client);
+            $this->assertAttributeEquals('bar', 'password', $client);
+
+            return true;
         }));
 
         $serviceProvider->register();

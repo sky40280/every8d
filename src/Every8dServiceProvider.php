@@ -2,6 +2,7 @@
 
 namespace Recca0120\Every8d;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 
 class Every8dServiceProvider extends ServiceProvider
@@ -9,9 +10,9 @@ class Every8dServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(Client::class, function ($app) {
-            $config = $app['config']['broadcasting.connections.every8d'];
+            $config = Arr::get($app['config'], 'services.every8d', []);
 
-            return new Client($config['user_id'], $config['password']);
+            return new Client(Arr::get($config, 'user_id'), Arr::get($config, 'password'));
         });
     }
 }
