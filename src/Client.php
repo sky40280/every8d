@@ -70,6 +70,70 @@ class Client
     }
 
     /**
+     * https.
+     *
+     * @return $this
+     */
+    public function https()
+    {
+        $this->apiEndpoint = 'https://oms.every8d.com/API21/HTTP/';
+
+        return $this;
+    }
+
+    /**
+     * send.
+     *
+     * @param array $params
+     * @return string
+     */
+    public function send($params)
+    {
+        $response = $this->doRequest('sendSMS.ashx', array_filter(array_merge([
+            'UID' => $this->userId,
+            'PWD' => $this->password,
+            'SB' => null,
+            'MSG' => null,
+            'DEST' => null,
+            'ST' => null,
+            'RETRYTIME' => null,
+        ], $this->remapParams($params))));
+
+        if ($this->isValidResponse($response) === false) {
+            throw new DomainException($response, 500);
+        }
+
+        return $this->parseResponse($response);
+    }
+
+    /**
+     * sendMMS.
+     *
+     * @param array $params
+     * @return string
+     */
+    public function sendMMS($params)
+    {
+        $response = $this->https()->doRequest('snedMMS.ashx', array_filter(array_merge([
+            'UID' => $this->userId,
+            'PWD' => $this->password,
+            'SB' => null,
+            'MSG' => null,
+            'DEST' => null,
+            'ST' => null,
+            'RETRYTIME' => null,
+            'ATTACHMENT' => null,
+            'TYPE' => null,
+        ], $this->remapParams($params))));
+
+        if ($this->isValidResponse($response) === false) {
+            throw new DomainException($response, 500);
+        }
+
+        return $this->parseResponse($response);
+    }
+
+    /**
      * credit.
      *
      * @return float
@@ -90,39 +154,6 @@ class Client
         }
 
         return $this->setCredit($response)->credit;
-    }
-
-    /**
-     * send.
-     *
-     * @param array $params
-     *
-     * @return string
-     */
-    public function send($params)
-    {
-        $response = $this->doRequest('sendSMS.ashx', array_filter(array_merge([
-            'UID' => $this->userId,
-            'PWD' => $this->password,
-            'SB' => null,
-            'MSG' => null,
-            'DEST' => null,
-            'ST' => null,
-        ], $this->remapParams($params))));
-
-        if ($this->isValidResponse($response) === false) {
-            throw new DomainException($response, 500);
-        }
-
-        list($credit, $sended, $cost, $unsend, $batchId) = explode(',', $response);
-
-        return [
-            'credit' => $this->setCredit($credit)->credit,
-            'sended' => (int) $sended,
-            'cost' => (float) $cost,
-            'unsend' => (int) $unsend,
-            'batchId' => $batchId,
-        ];
     }
 
     /**
@@ -198,6 +229,35 @@ class Client
             unset($params['sendTime']);
         }
 
+        if (empty($params['attachment']) === false) {
+            $params['ATTACHMENT'] = $params['attachment'];
+            unset($params['attachment']);
+        }
+
+        if (empty($params['type']) === false) {
+            $params['TYPE'] = $params['type'];
+            unset($params['type']);
+        }
+
         return $params;
+    }
+
+    /**
+     * parseResponse.
+     *
+     * @param array $response
+     * @return array
+     */
+    protected function parseResponse($response)
+    {
+        list($credit, $sended, $cost, $unsend, $batchId) = explode(',', $response);
+
+        return [
+            'credit' => $this->setCredit($credit)->credit,
+            'sended' => (int) $sended,
+            'cost' => (float) $cost,
+            'unsend' => (int) $unsend,
+            'batchId' => $batchId,
+        ];
     }
 }
