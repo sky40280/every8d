@@ -1,7 +1,7 @@
 {
     "name": "recca0120/every8d",
-    "description": "every8d sms client",
-    "keywords": ["every8d", "sms"],
+    "description": "every8d sms api client",
+    "keywords": ["every8d", "sms", "taiwan", "laravel", "notification"],
     "license": "MIT",
     "authors": [
         {
