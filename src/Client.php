@@ -16,7 +16,7 @@ class Client
      *
      * @var string
      */
-    public $apiEndpoint = 'http://api.every8d.com/hotaimotor/API21/HTTP';
+    public $apiEndpoint = 'http://biz2.every8d.com/hotaimotor/API21/HTTP';
 
     /**
      * $credit.
